@@ -2,6 +2,8 @@ import s from './DeckItem.module.css'
 import { useAppDispatch } from '../../../../app/store.ts'
 import { deleteDeckTC, updateDeckTC } from '../../decks-thunks.ts'
 import { Deck } from '../../decks-api.ts'
+import {useState} from "react";
+import {set} from "react-hook-form";
 
 type DeckProps = {
   deck: Deck
@@ -10,15 +12,20 @@ type DeckProps = {
 const TEST_ACC_NAME = 'kukus'
 
 export const DeckItem = ({ deck }: DeckProps) => {
+   const [isLoading, setIsLoading] = useState(false)
   const isTestingDeck = deck.author.name === TEST_ACC_NAME
   const dispatch = useAppDispatch()
-
   const handleDeleteButtonClick = () => {
+       setIsLoading(true)
     dispatch(deleteDeckTC(deck.id))
+        .then(() => setIsLoading(false))
+
   }
 
   const handleEditButtonClick = () => {
+       setIsLoading(true)
     dispatch(updateDeckTC({ id: deck.id, name: `${deck.name} updated` }))
+        .then(() => setIsLoading(false))
   }
 
   return (
@@ -39,8 +46,8 @@ export const DeckItem = ({ deck }: DeckProps) => {
 
       {isTestingDeck && (
         <div className={s.buttonBox}>
-          <button onClick={handleEditButtonClick}>update</button>
-          <button onClick={handleDeleteButtonClick}>delete</button>
+          <button onClick={handleEditButtonClick} disabled={isLoading} >update</button>
+          <button onClick={handleDeleteButtonClick} disabled = {isLoading}>delete</button>
         </div>
       )}
     </li>

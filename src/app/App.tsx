@@ -8,6 +8,7 @@ import {selectAppStatus} from "./app-selectors.ts";
 
 export const App = () => {
 const status = useAppSelector(selectAppStatus)
+
   return (
     <div>
         {status === 'loading' && < LinearLoader/>}
