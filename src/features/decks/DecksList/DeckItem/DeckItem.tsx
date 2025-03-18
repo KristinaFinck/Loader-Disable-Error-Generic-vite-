@@ -15,19 +15,27 @@ export const DeckItem = ({ deck }: DeckProps) => {
    const [isLoading, setIsLoading] = useState(false)
   const isTestingDeck = deck.author.name === TEST_ACC_NAME
   const dispatch = useAppDispatch()
-  const handleDeleteButtonClick = () => {
-       setIsLoading(true)
-    dispatch(deleteDeckTC(deck.id))
-        .then(() => setIsLoading(false))
 
-  }
+    // Функция для удаления колоды
+  const handleDeleteButtonClick = async () => {
+       setIsLoading(true)// Блокируем кнопку перед запросом
+   try {
+       await dispatch(deleteDeckTC(deck.id))// Дожидаемся завершения запроса
+   }catch(error) {
+           console.error("Ошибка при удалении колоды:", error)
+   }finally {
+       setIsLoading(false)// Разблокируем кнопку в любом случае
+   }}
 
-  const handleEditButtonClick = () => {
-       setIsLoading(true)
-    dispatch(updateDeckTC({ id: deck.id, name: `${deck.name} updated` }))
-        .then(() => setIsLoading(false))
-  }
-
+  const handleEditButtonClick = async() => {
+       setIsLoading(true)  // Блокируем кнопку перед запросом
+      try{
+           await   dispatch(updateDeckTC({ id: deck.id, name: `${deck.name} updated` }))
+      } catch(error){
+          console.error("Ошибка при обновлении колоды:", error)
+      } finally {
+          setIsLoading(false)// Разблокируем кнопку в любом случае
+      }}
   return (
     <li className={s.item}>
       <h3 className={s.title}>
