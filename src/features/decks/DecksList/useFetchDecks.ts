@@ -8,6 +8,7 @@ export const useFetchDecks = () => {
   const decks = useAppSelector(selectDecks)
 
   useEffect(() => {
+    console.log("Fetching decks..."); // Проверяем, вызывается ли useEffect
     dispatch(fetchDecksTC())
   }, [dispatch])
 

@@ -4,6 +4,7 @@ import { useFetchDecks } from './useFetchDecks.ts'
 
 export const DecksList = () => {
   const { decks } = useFetchDecks()
+  console.log("Decks in DecksList:", decks);
 
   return (
     <ul className={s.list}>

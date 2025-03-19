@@ -10,6 +10,7 @@ export const fetchDecksTC = () => async(dispatch: AppDispatch) => {
   dispatch(setAppStatusAC('loading'))
     // Дожидаемся ответа от API
     const res = await decksAPI.fetchDecks()
+    console.log("Decks fetched:", res.data.items); // Проверяем API-ответ
     // Когда данные пришли, обновляем store
     dispatch(setDecksAC(res.data.items))
     dispatch(setAppStatusAC('succeeded'))

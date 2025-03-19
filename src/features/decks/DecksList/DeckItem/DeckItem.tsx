@@ -9,13 +9,18 @@ type DeckProps = {
   deck: Deck
 }
 
-const TEST_ACC_NAME = 'kukus'
+const TEST_ACC_NAME = 'Nik-Kik-Shpink'
 
 export const DeckItem = ({ deck }: DeckProps) => {
-   const [isLoading, setIsLoading] = useState(false)
-  const isTestingDeck = deck.author.name === TEST_ACC_NAME
-  const dispatch = useAppDispatch()
 
+   const [isLoading, setIsLoading] = useState(false)
+  // const isTestingDeck = deck.author.name === TEST_ACC_NAME
+    const isTestingDeck = deck.author?.name.trim().toLowerCase() === TEST_ACC_NAME.toLowerCase();
+
+    const dispatch = useAppDispatch()
+    console.log("Deck data:", deck);
+    console.log("Deck author:", deck.author?.name);
+    console.log("Is testing deck:", isTestingDeck);
     // Функция для удаления колоды
   const handleDeleteButtonClick = async () => {
        setIsLoading(true)// Блокируем кнопку перед запросом
@@ -36,6 +41,9 @@ export const DeckItem = ({ deck }: DeckProps) => {
       } finally {
           setIsLoading(false)// Разблокируем кнопку в любом случае
       }}
+    console.log("Deck author:", deck.author?.name);
+    console.log("Expected:", TEST_ACC_NAME);
+    console.log("Is testing deck:", isTestingDeck);
   return (
     <li className={s.item}>
       <h3 className={s.title}>
@@ -52,12 +60,12 @@ export const DeckItem = ({ deck }: DeckProps) => {
         <b>Updated:</b> {new Date(deck.updated).toLocaleString('ru-Ru')}
       </p>
 
-      {isTestingDeck && (
+      {/*{isTestingDeck && (*/}
         <div className={s.buttonBox}>
           <button onClick={handleEditButtonClick} disabled={isLoading} >update</button>
           <button onClick={handleDeleteButtonClick} disabled = {isLoading}>delete</button>
         </div>
-      )}
+      {/*)}*/}
     </li>
   )
 }
