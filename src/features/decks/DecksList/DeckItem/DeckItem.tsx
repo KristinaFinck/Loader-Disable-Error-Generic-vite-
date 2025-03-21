@@ -18,9 +18,6 @@ export const DeckItem = ({ deck }: DeckProps) => {
     const isTestingDeck = deck.author?.name.trim().toLowerCase() === TEST_ACC_NAME.toLowerCase();
 
     const dispatch = useAppDispatch()
-    console.log("Deck data:", deck);
-    console.log("Deck author:", deck.author?.name);
-    console.log("Is testing deck:", isTestingDeck);
     // Функция для удаления колоды
   const handleDeleteButtonClick = async () => {
        setIsLoading(true)// Блокируем кнопку перед запросом
