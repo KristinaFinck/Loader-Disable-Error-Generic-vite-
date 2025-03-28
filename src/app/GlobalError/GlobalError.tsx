@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { toast, ToastContainer } from 'react-toastify'
 
 export const GlobalError = () => {
-  const errorMessage = ''
+  const errorMessage = 'ошибка'
 
   useEffect(() => {
     if (errorMessage) {
