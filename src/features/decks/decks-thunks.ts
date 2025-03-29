@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import { decksAPI, UpdateDeckParams } from './decks-api.ts'
 import { addDeckAC, deleteDeckAC, setDecksAC, updateDeckAC } from './decks-reducer.ts'
-import {setAppStatusAC} from "../../app/app-reducer.ts";
+import {setAppErrorAC, setAppStatusAC} from "../../app/app-reducer.ts";
 import {AppDispatch} from "../../app/store.ts";
 import axios, {isAxiosError} from "axios";
 
@@ -50,12 +50,13 @@ export const updateDeckTC = (params: UpdateDeckParams) => async (dispatch: Dispa
       errorMessage = e.response?
           e.response?.data?.errorMessages?.[0].message || e.message//case 1, ошибка с сервера
        : e.message //case 2, ceть, например, offline
-    }else{
+    }else {
       //case 3, js error
       errorMessage = (e as Error).message
-
+    } // вынесла dispatch из блока if!
       console.log('❌ Error while updating deck:', errorMessage)
-    }
+      dispatch(setAppErrorAC(errorMessage))
+
   }
 }
 type ServerError = {
