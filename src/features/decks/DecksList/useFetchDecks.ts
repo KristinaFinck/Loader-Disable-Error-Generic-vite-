@@ -8,7 +8,7 @@ import {set} from "react-hook-form";
 export const useFetchDecks = () => {
   const dispatch = useAppDispatch() // get Redux dispatch function
   const decks = useAppSelector(selectDecks)  // get decks array from Redux store
- const [isLoading, setIsLoading] = useState(false)  // local loading state
+ const [isLoading, setIsLoading] = useState(true)  // local loading state
 
   useLayoutEffect(() => {
     setIsLoading(true)  // show loader while fetching
